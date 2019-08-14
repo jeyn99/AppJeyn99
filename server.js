@@ -1,1 +1,1 @@
-console.log("This is my sample js");
+console.log("Serverside.");
