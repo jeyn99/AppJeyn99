@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Class List Management</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        table {
+            margin-top: 10%;
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        form {
+            margin-top: 10px;
+        }
+        input {
+            padding: 5px 10px;
+            margin-top: 50px;
+        }
+        table, th, td{
+           border: 1px solid #6C220B;
+         }
+    </style>
+</head>
+
+<body>
+    <div id="dataContainer">
+        <button id="create">Create Student</button>
+
+        <table id="tableData">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>CourseYr</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+
+    <div id=addDataContainer style = "display: none">
+        <input type="text" id="name" placeholder="Complete name" required>
+        <input type="text" id="courseyr" placeholder="Course&Yr">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="address" placeholder="Address">
+        <button id="save">Save</button>
+    </div>
+
+
+
+
+    <script>
+
+        $("document").ready(function () {
+            var count = 0;
+
+            function showForm() { //shows my dataForm
+                $("#dataContainer").hide(100);
+                $("#create").hide(100);
+                $("#addDataContainer").show();
+            }
+
+            function hideForm() { //hides my dataform
+                $("#addDataContainer").hide();
+                $("#dataContainer").show();
+                $("#create").show();
+            }
+
+            
+
+            $("#create").click(function () { 
+                showForm();
+            });
+
+            
+            
+            $("#save").click(function () {
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var courseyr = $("#courseyr").val();
+                var add = $("#address").val();
+                var tdContent = ["id", "name", "courseyr"]; //This is the content of your tableData.
+                var rows = $("<tr>", {
+                    id: ++count,
+                    name: name,
+                    courseyr: courseyr,
+                    email: email,
+                    address: add
+                })//Adding element
+
+                for (let i = 0; i < tdContent.length; i++) {
+                    var cols = $("<td>").text($(rows).attr(tdContent[i])).appendTo($(rows))
+                }
+                //var row = "<tr><td>" + (count++) + "</td><td>" + name + "</td><td>" + courseyr + "</td></tr>";
+                $("tbody").append(rows);
+                $("input").val(null);
+                hideForm();
+            });
+
+            
+        });
+
+    </script>
+
+</body>
+
+</html>
