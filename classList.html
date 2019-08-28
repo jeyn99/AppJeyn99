@@ -30,7 +30,7 @@
             margin-top: 50px;
         }
         th, td {
-           padding: 10px 10px;
+           padding: 5px 5px;
          }
     </style>
 </head>
@@ -76,8 +76,6 @@
     </div>
 
 
-
-
     <script>
 
         $("document").ready(function () {
@@ -102,21 +100,26 @@
                 }
 
                 var editBtn = $("<button>", {
-                    class: "btn btn-primary",
+                    class: "btn btn-info",
                     id: "edit" + $(this).closest("tr").attr("id")
                 });
                 editBtn.text("EDIT").appendTo(rows);
+
                 var delBtn = $("<button>", {
                     class: "btn btn-danger",
                     id: "del" + $(this).closest("tr").attr("id")
                 });
-                delBtn.text("DELETE").append(editBtn);
+                delBtn.text("DELETE").appendTo(rows);
+
+                
 
                 //var row = "<tr><td>" + (count++) + "</td><td>" + name + "</td><td>" + courseyr + "</td></tr>";
                 $("tbody").append(rows);
                 $("input").val(null);
                 $("#addDataContainer").modal("hide");
             });
+
+
 
 
         });
