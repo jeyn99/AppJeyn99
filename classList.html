@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <title>Class List Management</title>
     <style>
         body {
@@ -14,26 +16,31 @@
 
         table {
             margin-top: 10%;
-            font-family: arial, sans-serif;
             border-collapse: collapse;
-            width: 80%;
-        }
-        form {
-            margin-top: 10px;
+            width: 100%;
+            text-align: left;
+            
         }
         input {
             padding: 5px 10px;
+            margin-top: 10px;
+        }
+
+        #dataContainer {
             margin-top: 50px;
         }
-        table, th, td{
-           border: 1px solid #6C220B;
-         }
-    </style>
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        
+        </style>
 </head>
 
 <body>
     <div id="dataContainer">
-        <button id="create">Create Student</button>
+
+        <button id="create" data-toggle="modal" data-target="#addDataContainer" class="btn btn-primary">Create Student</button>
 
         <table id="tableData">
             <thead>
@@ -41,56 +48,52 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>CourseYr</th>
-                    <th>Action</th>
+                    <th></th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
 
 
-    <div id=addDataContainer style = "display: none">
-        <input type="text" id="name" placeholder="Complete name" required>
-        <input type="text" id="courseyr" placeholder="Course&Yr">
-        <input type="email" id="email" placeholder="Email">
-        <input type="text" id="address" placeholder="Address">
-        <button id="save">Save</button>
+    <div class="modal fade" tabindex="-1" role="dialog" id=addDataContainer>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Student Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Name: <input type="text" id="name" placeholder="Complete name" required><br>
+                    Course&Year: <input type="text" id="courseyr" placeholder="Course&Yr"><br>
+                    Email: <input type="email" id="email" placeholder="Email"><br>
+                    Address: <input type="text" id="address" placeholder="Address"><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="save" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-
 
     <script>
 
         $("document").ready(function () {
             var count = 0;
+            var editing = false;
 
-            function showForm() { //shows my dataForm
-                $("#dataContainer").hide(100);
-                $("#create").hide(100);
-                $("#addDataContainer").show();
-            }
 
-            function hideForm() { //hides my dataform
-                $("#addDataContainer").hide();
-                $("#dataContainer").show();
-                $("#create").show();
-            }
 
-            
-
-            $("#create").click(function () { 
-                showForm();
-            });
-
-            
-            
             $("#save").click(function () {
                 var name = $("#name").val();
                 var email = $("#email").val();
                 var courseyr = $("#courseyr").val();
                 var add = $("#address").val();
-                var tdContent = ["id", "name", "courseyr"]; //This is the content of your tableData.
+                var tdContent = ["id", "name", "courseyr"]; //This is the content of the tableData.
                 var rows = $("<tr>", {
                     id: ++count,
                     name: name,
@@ -99,14 +102,62 @@
                     address: add
                 })//Adding element
 
+
+                
                 for (let i = 0; i < tdContent.length; i++) {
                     var cols = $("<td>").text($(rows).attr(tdContent[i])).appendTo($(rows))
                 }
+
+                // var td4 = $("<td>").appendTo($(cols));
+                // rows.append(td4);
+
+                var EditBtn = $("<button>",).text("EDIT").appendTo($(rows)).hide();
+                EditBtn.attr("id", "Id" + count);
+                var delBtn = $("<button>").text("DELETE").appendTo($(rows)).hide();
+                delBtn.attr("id", "Id2" + count);
+
+
+
+                $("tbody").on("mouseover", "tr", function (event) {
+                    $(EditBtn).show();
+                    $(delBtn).show();
+                    var id = "#Id" + $(this).attr("id");
+                    var id2 = "#Id2" + $(this).attr("id");
+                    $(id).on("click", function() {
+                        $("#id").val($(this).closest("tr").attr("id"));
+                        $("#name").val($(this).closest("tr").attr("name"));
+                        $("#courseyr").val($(this).closest("tr").attr("courseyr"));
+                        $("#email").val($(this).closest("tr").attr("email"));
+                        $("#address").val($(this).closest("tr").attr("address"));
+                        editing = true
+
+                        $("#addDataContainer").modal("show");
+                        $("input").value(null);
+                    });
+
+                    $(id2).on("click", function() {
+                       $(this).closest("tr").remove();
+                    });
+
+
+                });
+
+                $("tbody").on("mouseleave", "tr", function (event) {
+                    $(EditBtn).hide(100);
+                    $(delBtn).hide(100);
+                });
+
+
+
                 //var row = "<tr><td>" + (count++) + "</td><td>" + name + "</td><td>" + courseyr + "</td></tr>";
                 $("tbody").append(rows);
                 $("input").val(null);
-                hideForm();
+                $('#addDataContainer').modal("hide");
             });
+
+
+
+
 
             
         });
