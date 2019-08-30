@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Countries</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style>
+    img {
+      width: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card" style="margin-top: 50px">
+      <div class="card-header mb-5 bg-primary">
+        <h2>Search Countries</h2>
+      </div>
+      <div class="card-body" style="text-align: center">
+          <img src="https://geoffsurratt.typepad.com/.a/6a00d83452d15669e20168e6d01f26970c-pi" id = "load" style="width: 200px; display: none"><br>
+        <input id="countryName" placeholder="Country name" class="p-2 mb-5 bg-light text-dark">
+        <button id="btnSearch" class="btn btn-primary">Search</button>
+        <table class="table">
+          <thead>
+            <tr>
+              <td>Countries</td>
+              <td>Flag</td>
+              <td>Country Code</td>
+              <td>Population</td>
+            </tr>
+          </thead>
+          <tbody id="countryDetails"></tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="controller.js"></script>
+
+</body>
+
+</html>
