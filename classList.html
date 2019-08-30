@@ -11,55 +11,41 @@
     <title>Class List Management</title>
     <style>
         body {
-            text-align: center;
-            padding-top: 50px;
-        }
+text-align: center;
+padding-top: 50px;
+}
 
-        table {
-            margin-top: 10%;
-            border-collapse: collapse;
-            width: 100%;
-            text-align: left;
-<<<<<<< HEAD
-        }
-        form {
-            margin-top: 10px;
-=======
-            
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
-        }
-        input {
-            padding: 5px 10px;
-            margin-top: 10px;
-        }
+table {
+margin-top: 10%;
+border-collapse: collapse;
+width: 100%;
+text-align: left;
+}
+form {
+margin-top: 10px;
+}
+input {
+padding: 5px 10px;
+margin-top: 10px;
+}
 
-        #dataContainer {
-            margin-top: 50px;
-        }
-        th, td {
-<<<<<<< HEAD
-           padding: 5px 5px;
-         }
-    </style>
-=======
-            padding: 15px;
-            text-align: left;
-        }
-        
-        </style>
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
+#dataContainer {
+margin-top: 50px;
+}
+th, td {
+padding: 5px 5px;
+}
+botton, td{
+    padding: 10px 10px;
+}
+
+</style>
 </head>
 
-<body>
+<body class = "container-fluid">
     <div id="dataContainer">
-<<<<<<< HEAD
         <button id="create" class="btn btn-primary" data-toggle="modal" data-target="#addDataContainer">Create Student</button>
-=======
-
-        <button id="create" data-toggle="modal" data-target="#addDataContainer" class="btn btn-primary">Create Student</button>
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
-
-        <table id="tableData">
+        <table id="tableData" class="table-hover table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -74,62 +60,33 @@
         </table>
     </div>
 
-<<<<<<< HEAD
-    <!-- Modal -->
     <div class="modal fade" id="addDataContainer" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">Student Information</h2>
-=======
-
-    <div class="modal fade" tabindex="-1" role="dialog" id=addDataContainer>
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
                     <h5 class="modal-title">Student Information</h5>
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     Name: <input type="text" id="name" placeholder="Complete name" required><br>
-<<<<<<< HEAD
                     Course&Y: <input type="text" id="courseyr" placeholder="Course&Yr" required><br>
                     Email: <input type="email" id="email" placeholder="Email" required><br>
                     Address: <input type="text" id="address" placeholder="Address" required><br>
                 </div>
                 <div class="modal-footer">
                     <button id="save" class="btn btn-primary">Save</button>
-=======
-                    Course&Year: <input type="text" id="courseyr" placeholder="Course&Yr"><br>
-                    Email: <input type="email" id="email" placeholder="Email"><br>
-                    Address: <input type="text" id="address" placeholder="Address"><br>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="save" class="btn btn-primary">Save changes</button>
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
                 </div>
             </div>
         </div>
     </div>
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
     <script>
 
         $("document").ready(function () {
             var count = 0;
             var editing = false;
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
             $("#save").click(function () {
                 var name = $("#name").val();
                 var email = $("#email").val();
@@ -143,92 +100,59 @@
                     email: email,
                     address: add
                 })//Adding element
-
-
-                
                 for (let i = 0; i < tdContent.length; i++) {
                     var cols = $("<td>").text($(rows).attr(tdContent[i])).appendTo($(rows))
                 }
 
-<<<<<<< HEAD
                 var editBtn = $("<button>", {
                     class: "btn btn-info",
                     id: "edit" + $(this).closest("tr").attr("id")
                 });
-                editBtn.text("EDIT").appendTo(rows);
+                editBtn.text("EDIT").appendTo(rows).hide();
 
                 var delBtn = $("<button>", {
                     class: "btn btn-danger",
                     id: "del" + $(this).closest("tr").attr("id")
                 });
-                delBtn.text("DELETE").appendTo(rows);
-
-                
-=======
-                // var td4 = $("<td>").appendTo($(cols));
-                // rows.append(td4);
-
-                var EditBtn = $("<button>",).text("EDIT").appendTo($(rows)).hide();
-                EditBtn.attr("id", "Id" + count);
-                var delBtn = $("<button>").text("DELETE").appendTo($(rows)).hide();
-                delBtn.attr("id", "Id2" + count);
+                delBtn.text("DELETE").appendTo(rows).hide();
 
 
 
-                $("tbody").on("mouseover", "tr", function (event) {
-                    $(EditBtn).show();
+                $("tbody").mouseenter(function () {
+                    $(editBtn).show();
                     $(delBtn).show();
-                    var id = "#Id" + $(this).attr("id");
-                    var id2 = "#Id2" + $(this).attr("id");
-                    $(id).on("click", function() {
+                    $(this).closest("tr").css("background-color", "red");
+                    $(editBtn).on("click", function () {
                         $("#id").val($(this).closest("tr").attr("id"));
                         $("#name").val($(this).closest("tr").attr("name"));
                         $("#courseyr").val($(this).closest("tr").attr("courseyr"));
                         $("#email").val($(this).closest("tr").attr("email"));
                         $("#address").val($(this).closest("tr").attr("address"));
                         editing = true
-
                         $("#addDataContainer").modal("show");
                         $("input").value(null);
                     });
 
-                    $(id2).on("click", function() {
-                       $(this).closest("tr").remove();
+                    $(delBtn).on("click", function () {
+                        $(this).closest("tr").remove();
                     });
-
-
                 });
 
                 $("tbody").on("mouseleave", "tr", function (event) {
-                    $(EditBtn).hide(100);
-                    $(delBtn).hide(100);
+                    $(editBtn).hide(1000);
+                    $(delBtn).hide(1000);
                 });
 
 
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
 
                 //var row = "<tr><td>" + (count++) + "</td><td>" + name + "</td><td>" + courseyr + "</td></tr>";
                 $("tbody").append(rows);
                 $("input").val(null);
-<<<<<<< HEAD
                 $("#addDataContainer").modal("hide");
-=======
-                $('#addDataContainer').modal("hide");
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
             });
-
-
-
-
-<<<<<<< HEAD
-=======
-
-            
->>>>>>> 128005532651b02d6c46d2c5d6c2e89f0f8bc1b9
         });
 
     </script>
-
 </body>
 
 </html>
