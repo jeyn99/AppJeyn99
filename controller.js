@@ -1,17 +1,19 @@
 $(document).ready(function () {
-  $(document).ajaxStart(function () {
-    $("#load").show();
-    $("#btnSearch").attr("disable", true);
-    $("#btnSearch").text("Searching")
-  });
-  
-  $(document).ajaxStop(function () {
-    $("#load").hide();
-    $("#btnSearch").attr("disable", false);
-    $("#btnSearch").text("Search")
-  });
+
   
   $("#btnSearch").click(function () {
+    
+      $(document).ajaxStart(function () {
+        $("#load").show();
+        $("#btnSearch").attr("disable", true);
+        $("#btnSearch").text("Searching")
+      });
+
+      $(document).ajaxStop(function () {
+        $("#load").hide();
+        $("#btnSearch").attr("disable", false);
+        $("#btnSearch").text("Search")
+      });
     var input = $("#countryName").val().toUpperCase();
     emptyTable();
     var apiLinkDS = "https://restcountries.eu/rest/v2/name/" + input;
