@@ -14,7 +14,6 @@
 text-align: center;
 padding-top: 50px;
 }
-
 table {
 margin-top: 10%;
 border-collapse: collapse;
@@ -28,7 +27,6 @@ input {
 padding: 5px 10px;
 margin-top: 10px;
 }
-
 #dataContainer {
 margin-top: 50px;
 }
@@ -38,11 +36,10 @@ padding: 5px 5px;
 botton, td{
     padding: 10px 10px;
 }
-
 </style>
 </head>
 
-<body class = "container-fluid">
+<body class="container-fluid">
     <div id="dataContainer">
         <button id="create" class="btn btn-primary" data-toggle="modal" data-target="#addDataContainer">Create Student</button>
         <table id="tableData" class="table-hover table-striped">
@@ -64,7 +61,7 @@ botton, td{
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Student Information</h5>
+                    <h1 class="modal-title">Student Information</h1>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -81,11 +78,13 @@ botton, td{
             </div>
         </div>
     </div>
-    <script>
 
+
+    <script>
         $("document").ready(function () {
-            var count = 0;
             var editing = false;
+            var trID;
+            var count = 0;
 
             $("#save").click(function () {
                 var name = $("#name").val();
@@ -100,8 +99,21 @@ botton, td{
                     email: email,
                     address: add
                 })//Adding element
-                for (let i = 0; i < tdContent.length; i++) {
-                    var cols = $("<td>").text($(rows).attr(tdContent[i])).appendTo($(rows))
+                $(editBtn).hide();
+                $(delBtn).hide();
+
+                if (editing) {
+                    let frstID = trID;
+                    $(rows).attr("id", frstID);
+                    for (let i = 0; i < tdContent.length; i++) {
+                        var cols = $("<td>").text($(rows).attr(tdContent[i])).appendTo($(rows))
+                    }
+                    editing = false;
+                    --count;
+                } else {
+                    for (let i = 0; i < tdContent.length; i++) {
+                        var cols = $("<td>").text($(rows).attr(tdContent[i])).appendTo($(rows))
+                    }
                 }
 
                 var editBtn = $("<button>", {
@@ -109,7 +121,6 @@ botton, td{
                     id: "edit" + $(this).closest("tr").attr("id")
                 });
                 editBtn.text("EDIT").appendTo(rows).hide();
-
                 var delBtn = $("<button>", {
                     class: "btn btn-danger",
                     id: "del" + $(this).closest("tr").attr("id")
@@ -118,40 +129,35 @@ botton, td{
 
 
 
-                $("tbody").mouseenter(function () {
+
+                $("tbody").hover(function () {
                     $(editBtn).show();
                     $(delBtn).show();
-                    $(this).closest("tr").css("background-color", "red");
                     $(editBtn).on("click", function () {
                         $("#id").val($(this).closest("tr").attr("id"));
                         $("#name").val($(this).closest("tr").attr("name"));
                         $("#courseyr").val($(this).closest("tr").attr("courseyr"));
                         $("#email").val($(this).closest("tr").attr("email"));
                         $("#address").val($(this).closest("tr").attr("address"));
-                        editing = true
+                        trID = $(this).closest("tr").attr("id");
+                        editing = true;
                         $("#addDataContainer").modal("show");
-                        $("input").value(null);
+                        $(this).closest("tr").remove();
                     });
-
                     $(delBtn).on("click", function () {
                         $(this).closest("tr").remove();
                     });
                 });
-
                 $("tbody").on("mouseleave", "tr", function (event) {
-                    $(editBtn).hide(1000);
-                    $(delBtn).hide(1000);
+                    $(editBtn).hide(100);
+                    $(delBtn).hide(100);
                 });
-
-
-
                 //var row = "<tr><td>" + (count++) + "</td><td>" + name + "</td><td>" + courseyr + "</td></tr>";
                 $("tbody").append(rows);
                 $("input").val(null);
                 $("#addDataContainer").modal("hide");
             });
         });
-
     </script>
 </body>
 
