@@ -39,12 +39,8 @@ $(document).ready(function () {
       success: function (data) {
 
         for (let i = 0; i < data.length; ++i) {
-          name = (data[i].name).toUpperCase();
-          code = (data[i].alpha2Code).toUpperCase();
-          if (name.substring(0, input.length) == input || code == input) {
-            flag = (data[i].flag);
-            pop = (data[i].population);
-            addRow(name, flag, code, pop);
+          if ((data[i].name).toUpperCase().substring(0, input.length) == input || data[i].alpha2Code == input) {
+            addRow(data[i].name, data[i].flag, data[i].alpha2Code, data[i].population);
             $("table").show();
           }
         }
