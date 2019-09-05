@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Adding Student</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <!-- <script src="server.js"></script> -->
+  <div class="container">
+    <div class="card card-center" style="width:400px">
+      <img class="card-img-top" src="https://static.thenounproject.com/png/35778-200.png" alt="Card image" style="width:100%">
+      <div class="card-body">
+        <h4 class="card-title">Add Student</h4>
+        <input type="text" id="name" placeholder="Name" class="form-control"><br>
+        <input type="text" id="subject" placeholder="Subject" class="form-control"><br>
+        <button id="add" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+    <br>
+  </div>
+
+<script>
+
+$(document).ready(function () {
+  $("#add").click(function () {
+    var sub = $("#subject").val();
+    var nameStudent = $("#name").val();
+    
+    $.ajax({
+      type: "POST",
+      url: "http://127.0.0.1:3000",
+      data: JSON.stringify({name: nameStudent,  subject: sub }),
+      success: function (data) {
+        alert("success");
+        console.log(data.name);
+      },
+    });
+  });
+});
+
+</script>
+
+</body>
+</html>
