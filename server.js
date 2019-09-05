@@ -9,15 +9,11 @@ var server = http.createServer(function (request, response) {
   request.on('data',function(request){
     allData = JSON.parse(request);
     student = allData.name;
+    subjectName = allData.subject;
   });
 
   request.on('end',function(request){
-    fs.appendFile('test.txt', "student" + "\n", function(err, data) {
-      
-      response.end();
+    fs.appendFile(subjectName + ".txt", student + "\n", function(err, data) {
     });
   });
-
-
-  
 }); server.listen(3000)
